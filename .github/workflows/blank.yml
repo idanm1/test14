@@ -39,7 +39,7 @@ jobs:
       - name: test_ArgoCD
         run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-              prs=$(gh pr list --json state,title,author)
+              prs=$(gh pr list --json name,id,state,title,author)
               echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
                   echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
