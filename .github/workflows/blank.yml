@@ -39,7 +39,7 @@ jobs:
       - name: test_ArgoCD
         run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-              prs=$(gh pr list)
+              prs=$(gh pr list --json)
               echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
                   echo "merged is BLOCKED! ArgoCD hanging PRs exist!"
