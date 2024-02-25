@@ -28,15 +28,13 @@ jobs:
       - name: test_ArgoCD
         run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-              echo $GITHUB_HEAD_REF
               CURRENT_PR=$(gh pr view $GITHUB_HEAD_REF --json title)
-              [[ "$CURRENT_PR" =~ "cluster ArgoCD" ]] && echo "No ArgoCD hanging PRs exist." && exit 0              
+              [[ "$CURRENT_PR" =~ "cluster ArgoCD" ]] && echo "ArgoCD PR" && exit 0              
               prs=$(gh pr list --json id,state,title,author)
-              echo "Current PR: $CURRENT_PR"
               echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
+                  echo "merged is BLOCKED! ArgoCD hanging PRs exist:"
                   echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
-                  echo "merged is BLOCKED! ArgoCD hanging PRs exist!"
                 exit 1
               else
                   echo "No ArgoCD hanging PRs exist."
