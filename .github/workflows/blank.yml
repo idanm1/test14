@@ -31,9 +31,9 @@ jobs:
               CURRENT_PR=$(gh pr view $GITHUB_HEAD_REF --json title)
               [[ "$CURRENT_PR" =~ "cluster ArgoCD" ]] && echo "ArgoCD PR" && exit 0              
               prs=$(gh pr list --json id,state,title,author)
-              echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
-                  echo "merged is BLOCKED! ArgoCD hanging PRs exist:"
+
+                  echo -e "\e[31m"merge is BLOCKED! ArgoCD hanging PRs exist:\e[0m"
                   echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
                 exit 1
               else
