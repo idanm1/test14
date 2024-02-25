@@ -32,8 +32,7 @@ jobs:
               [[ "$CURRENT_PR" =~ "cluster ArgoCD" ]] && echo "ArgoCD PR" && exit 0              
               prs=$(gh pr list --json id,state,title,author)
               if [[ $prs == *"ArgoCD"* ]]; then
-
-                  echo -e "\e[31m"merge is BLOCKED! ArgoCD hanging PRs exist:\e[0m"
+                  echo -e "\e[31mThis is red text\e[0m"
                   echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
                 exit 1
               else
