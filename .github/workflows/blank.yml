@@ -34,7 +34,7 @@ jobs:
               if [[ $prs == *"ArgoCD"* ]]; then
                   echo -e "\e[31m merge is BLOCKED! ArgoCD hanging PRs exist: \e[0m"
                   #echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
-                  echo "$(echo "$prs" | jq -r '.[] | select(.title | contains("ArgoCD")) | .title' | sed 's/.*/\e[33m&\e[0m/')"
+                  echo "$prs" | jq -r '.[] | select(.title | contains("ArgoCD")) | .title' | while IFS= read -r line; do printf '\033[0;33m%s\033[0m\n' "$line"; done
 
                 exit 1
               else
