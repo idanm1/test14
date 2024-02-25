@@ -40,7 +40,7 @@ jobs:
         run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
               echo $GITHUB_HEAD_REF
-              CURRENT_PR=$(gh pr view --json title,state)
+              CURRENT_PR=$(gh pr view $GITHUB_HEAD_REF --json title,state)
               prs=$(gh pr list --json id,state,title,author)
               echo $CURRENT_PR
               echo $prs
