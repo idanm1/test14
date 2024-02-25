@@ -36,15 +36,10 @@ jobs:
           echo test, and deploy your project.
 
 
-
-
       - name: test_ArgoCD
-        env:
-          GITHUB_TOKEN: "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"
-
-        
         run: |
-
+              gh auth login --with-token < mytoken.txt
+              echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
               prs=$(gh pr list)
               echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
