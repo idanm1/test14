@@ -40,7 +40,9 @@ jobs:
         run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
               echo $GITHUB_HEAD_REF
+              CURRENT_PR=$(gh pr view --json title,state)
               prs=$(gh pr list --json id,state,title,author)
+              echo $CURRENT_PR
               echo $prs
               if [[ $prs == *"ArgoCD"* ]]; then
                   echo $prs  | jq '.[] | select(.title | contains("ArgoCD")) | .title'
