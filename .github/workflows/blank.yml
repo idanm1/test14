@@ -38,7 +38,6 @@ jobs:
 
       - name: test_ArgoCD
         run: |
-              gh auth login --with-token < mytoken.txt
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
               prs=$(gh pr list)
               echo $prs
